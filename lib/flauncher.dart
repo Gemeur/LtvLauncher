@@ -16,7 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 import 'package:flauncher/actions.dart';
 import 'package:flauncher/custom_traversal_policy.dart';
 import 'package:flauncher/providers/apps_service.dart';
@@ -32,7 +31,7 @@ import 'package:flauncher/widgets/continue_watching_row.dart';
 import 'package:flauncher/providers/watch_next_service.dart';
 import 'package:flauncher/providers/settings_service.dart';
 import 'package:flauncher/l10n/app_localizations.dart';
-
+import 'package:flauncher/widgets/vision_glass_bar.dart';
 import 'models/category.dart';
 
 class FLauncher extends StatefulWidget {
@@ -153,11 +152,14 @@ class _FLauncherState extends State<FLauncher> {
 
       switch (category.type) {
         case CategoryType.row:
-          categoryWidget = CategoryRow(
+          // Оборачиваем строку приложений в жидкое стекло visionOS:
+          categoryWidget = VisionGlassBar(
+            child: CategoryRow(
               key: sectionKey,
               category: category,
               applications: category.applications,
-              isFirstSection: isFirstSection
+              isFirstSection: isFirstSection,
+            ),
           );
           break;
         case CategoryType.grid:
